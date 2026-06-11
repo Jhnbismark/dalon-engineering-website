@@ -22,9 +22,10 @@ const contact = {
 >
   <section class="page-head">
     <div class="grid-texture" aria-hidden="true"></div>
-    <div class="container">
+    <span class="ghost-word" aria-hidden="true">CONTACT</span>
+    <div class="container page-head-content">
       <p class="eyebrow">Contact</p>
-      <h1 class="section-title page-title">Let's talk about your project.</h1>
+      <h1 class="section-title page-title">Let's talk about your <em>project.</em></h1>
       <p class="lede">
         Send us a message and we will respond within one working day. Early
         ideas are welcome — the best time to involve an engineer is before
@@ -137,7 +138,12 @@ const contact = {
   .page-head {
     position: relative;
     overflow: hidden;
-    padding-block: clamp(4rem, 9vw, 6.5rem);
+    padding-block: clamp(4.5rem, 10vw, 7.5rem);
+  }
+
+  .page-head-content {
+    position: relative;
+    z-index: 1;
   }
 
   .page-title {
@@ -196,8 +202,10 @@ const contact = {
     display: flex;
     flex-direction: column;
     gap: 1.4rem;
-    background: linear-gradient(160deg, var(--panel) 0%, var(--ink-2) 100%);
-    border: 1px solid var(--line-faint);
+    border: 1px solid transparent;
+    background:
+      linear-gradient(165deg, var(--panel) 0%, var(--ink-2) 90%) padding-box,
+      var(--border-grad) border-box;
     padding: 2.4rem;
   }
 

@@ -11,10 +11,11 @@ import { withBase } from '../lib/base';
   <!-- ============ PAGE HEADER ============ -->
   <section class="page-head">
     <div class="grid-texture" aria-hidden="true"></div>
-    <div class="container">
+    <span class="ghost-word" aria-hidden="true">SERVICES</span>
+    <div class="container page-head-content">
       <p class="eyebrow">Services</p>
       <h1 class="section-title page-title">
-        Everything a project needs,<br />under one roof.
+        Everything a project needs,<br />under <em>one roof.</em>
       </h1>
       <p class="lede">
         From the first feasibility question to the final account, we cover the
@@ -36,18 +37,20 @@ import { withBase } from '../lib/base';
             <span class="service-index" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}
             </span>
-            <svg
-              class="service-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d={service.icon} />
-            </svg>
+            <span class="icon-chip">
+              <svg
+                class="service-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d={service.icon} />
+              </svg>
+            </span>
           </div>
           <div class="service-body">
             <h2 class="service-heading reveal">{service.title}</h2>
@@ -87,7 +90,12 @@ import { withBase } from '../lib/base';
   .page-head {
     position: relative;
     overflow: hidden;
-    padding-block: clamp(4rem, 9vw, 6.5rem);
+    padding-block: clamp(4.5rem, 10vw, 7.5rem);
+  }
+
+  .page-head-content {
+    position: relative;
+    z-index: 1;
   }
 
   .page-title {
@@ -127,9 +135,8 @@ import { withBase } from '../lib/base';
   }
 
   .service-icon {
-    width: 2.6rem;
-    height: 2.6rem;
-    color: var(--gold);
+    width: 1.8rem;
+    height: 1.8rem;
   }
 
   .service-heading {

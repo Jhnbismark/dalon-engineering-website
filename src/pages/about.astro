@@ -40,10 +40,11 @@ const values = [
   <!-- ============ PAGE HEADER ============ -->
   <section class="page-head">
     <div class="grid-texture" aria-hidden="true"></div>
-    <div class="container">
+    <span class="ghost-word" aria-hidden="true">DALON</span>
+    <div class="container page-head-content">
       <p class="eyebrow">About us</p>
       <h1 class="section-title page-title">
-        Built by engineers.<br />Run on principle.
+        Built by engineers.<br />Run on <em>principle.</em>
       </h1>
       <p class="lede">
         Dalon Engineering Company Limited is a newly registered Ugandan
@@ -172,7 +173,12 @@ const values = [
   .page-head {
     position: relative;
     overflow: hidden;
-    padding-block: clamp(4rem, 9vw, 6.5rem);
+    padding-block: clamp(4.5rem, 10vw, 7.5rem);
+  }
+
+  .page-head-content {
+    position: relative;
+    z-index: 1;
   }
 
   .page-title {
@@ -293,17 +299,24 @@ const values = [
 
   .director-monogram {
     flex-shrink: 0;
-    width: 4.4rem;
-    height: 4.4rem;
+    width: 4.6rem;
+    height: 4.6rem;
     display: grid;
     place-items: center;
-    border: 1px solid var(--gold-dim);
-    color: var(--gold);
+    border: 1px solid transparent;
+    background:
+      linear-gradient(150deg, rgba(200, 169, 110, 0.14), var(--ink-2) 75%) padding-box,
+      linear-gradient(150deg, var(--gold), rgba(200, 169, 110, 0.1)) border-box;
+    color: var(--gold-bright);
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     letter-spacing: 0.05em;
-    background: linear-gradient(150deg, rgba(200, 169, 110, 0.1), transparent 70%);
+    transition: transform 0.45s var(--ease-fluid);
+  }
+
+  .director-card:hover .director-monogram {
+    transform: rotate(-4deg) scale(1.04);
   }
 
   .director-name {

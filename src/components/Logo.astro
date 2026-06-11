@@ -1,83 +1,59 @@
 ---
-// SVG recreation of the Dalon mark: diagonal-striped tower + stepped
-// vertical bars, rendered in currentColor so it works white-on-dark.
+// The official Dalon lockup (from Dalonlogo.jpg), converted to a white
+// transparent PNG by scripts/process-logo.mjs so it sits on dark surfaces.
 import { withBase } from '../lib/base';
 
 interface Props {
-  showTagline?: boolean;
+  /** Rendered height in rem units. Source is 811x298, so width scales. */
+  size?: 'nav' | 'footer';
   class?: string;
 }
-const { showTagline = false, class: className } = Astro.props;
+const { size = 'nav', class: className } = Astro.props;
 ---
 
-<a href={withBase('/')} class:list={['logo', className]} aria-label="Dalon Engineering Company Limited — Home">
-  <svg
-    class="logo-mark"
-    viewBox="0 0 88 96"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-    <defs>
-      <clipPath id="dalon-tower">
-        <path d="M2 96 V36 L40 4 V96 Z"></path>
-      </clipPath>
-    </defs>
-    <g clip-path="url(#dalon-tower)" stroke="currentColor" stroke-width="5">
-      <line x1="-28" y1="76" x2="64" y2="-4"></line>
-      <line x1="-18" y1="86" x2="74" y2="6"></line>
-      <line x1="-8" y1="96" x2="84" y2="16"></line>
-      <line x1="2" y1="106" x2="94" y2="26"></line>
-      <line x1="12" y1="116" x2="104" y2="36"></line>
-      <line x1="22" y1="126" x2="114" y2="46"></line>
-    </g>
-    <rect x="48" y="14" width="6" height="82" fill="currentColor"></rect>
-    <rect x="60" y="24" width="6" height="72" fill="currentColor"></rect>
-    <rect x="72" y="34" width="6" height="62" fill="currentColor"></rect>
-    <rect x="82" y="44" width="6" height="52" fill="currentColor"></rect>
-  </svg>
-  <span class="logo-text">
-    <span class="logo-word">DALON</span>
-    {showTagline && <span class="logo-tagline">Engineering Company Limited</span>}
-  </span>
+<a
+  href={withBase('/')}
+  class:list={['logo', `logo--${size}`, className]}
+  aria-label="Dalon Engineering Company Limited — Home"
+>
+  <img
+    src={withBase('/logo-white.png')}
+    alt="DALON — Engineering Company Limited"
+    width="811"
+    height="298"
+    loading="eager"
+    decoding="async"
+  />
 </a>
 
 <style>
   .logo {
     display: inline-flex;
     align-items: center;
-    gap: 0.7rem;
-    color: var(--text);
     text-decoration: none;
+    transition: opacity 0.3s var(--ease-fluid);
   }
 
-  .logo-mark {
-    width: 2.1rem;
-    height: auto;
-    color: var(--gold);
-    flex-shrink: 0;
+  .logo:hover {
+    opacity: 0.85;
   }
 
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
+  .logo img {
+    width: auto;
+    display: block;
   }
 
-  .logo-word {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.35rem;
-    letter-spacing: 0.08em;
+  .logo--nav img {
+    height: 2.9rem;
   }
 
-  .logo-tagline {
-    margin-top: 0.4rem;
-    font-size: 0.55rem;
-    font-weight: 500;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--muted);
-    white-space: nowrap;
+  .logo--footer img {
+    height: 3.6rem;
+  }
+
+  @media (max-width: 480px) {
+    .logo--nav img {
+      height: 2.4rem;
+    }
   }
 </style>

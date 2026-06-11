@@ -2,6 +2,13 @@
 import Base from '../layouts/Base.astro';
 import { services } from '../data/services';
 import { withBase } from '../lib/base';
+
+const heroFacts = [
+  { label: 'Registered', value: 'Republic of Uganda' },
+  { label: 'Leadership', value: 'Engineer-led' },
+  { label: 'Based in', value: 'Kampala' },
+  { label: 'Coverage', value: 'Full project lifecycle' },
+];
 ---
 
 <Base
@@ -11,14 +18,15 @@ import { withBase } from '../lib/base';
   <!-- ============ HERO ============ -->
   <section class="hero">
     <div class="grid-texture" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
     <div class="container hero-inner">
       <div class="hero-copy">
         <p class="eyebrow hero-anim" style="--anim-delay: 0s">
           Kampala · Uganda
         </p>
         <h1 class="hero-title hero-anim" style="--anim-delay: 0.12s">
-          Engineering built on <em>integrity.</em><br />Delivered with
-          <em>precision.</em>
+          Engineering built on <em class="title-accent">integrity.</em><br />
+          Delivered with <em class="title-accent">precision.</em>
         </h1>
         <p class="hero-lede hero-anim" style="--anim-delay: 0.24s">
           Dalon Engineering Company Limited is a Ugandan engineering firm
@@ -34,6 +42,17 @@ import { withBase } from '../lib/base';
           </a>
           <a href={withBase('/services/')} class="btn btn--ghost">Explore services</a>
         </div>
+
+        <dl class="hero-facts hero-anim" style="--anim-delay: 0.5s">
+          {
+            heroFacts.map((fact) => (
+              <div class="hero-fact">
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
       </div>
 
       <!-- Architectural line work, echoing the logo geometry -->
@@ -44,8 +63,8 @@ import { withBase } from '../lib/base';
               <path d="M40 440 V190 L170 80 V440 Z"></path>
             </clipPath>
             <linearGradient id="hero-fade" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#c8a96e" stop-opacity="0.9"></stop>
-              <stop offset="1" stop-color="#c8a96e" stop-opacity="0.25"></stop>
+              <stop offset="0" stop-color="#e3c990" stop-opacity="0.95"></stop>
+              <stop offset="1" stop-color="#c8a96e" stop-opacity="0.2"></stop>
             </linearGradient>
           </defs>
           <g clip-path="url(#hero-tower)" stroke="url(#hero-fade)" stroke-width="10">
@@ -61,18 +80,37 @@ import { withBase } from '../lib/base';
           <rect x="238" y="152" width="18" height="288" fill="url(#hero-fade)"></rect>
           <rect x="280" y="186" width="18" height="254" fill="url(#hero-fade)"></rect>
           <rect x="318" y="220" width="18" height="220" fill="url(#hero-fade)"></rect>
-          <line x1="0" y1="440.5" x2="420" y2="440.5" stroke="#c8a96e" stroke-opacity="0.45"></line>
+          <line x1="0" y1="440.5" x2="420" y2="440.5" stroke="#c8a96e" stroke-opacity="0.5"></line>
+          <line x1="0" y1="446.5" x2="420" y2="446.5" stroke="#c8a96e" stroke-opacity="0.15"></line>
         </svg>
       </div>
     </div>
   </section>
 
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {services.map((s) => <span class="marquee-item">{s.title}</span>)}
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      {services.map((s) => <span class="marquee-item">{s.title}</span>)}
+    </div>
+  </div>
+
   <!-- ============ SERVICES ============ -->
-  <section class="section section--line">
+  <section class="section services">
     <div class="container">
-      <div class="reveal">
-        <p class="eyebrow">What we do</p>
-        <h2 class="section-title">Six disciplines.<br />One standard of work.</h2>
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">What we do</p>
+          <h2 class="section-title">Six disciplines.<br />One <em>standard</em> of work.</h2>
+        </div>
+        <a href={withBase('/services/')} class="btn btn--ghost section-head-cta">
+          All services
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+        </a>
       </div>
 
       <div class="services-grid">
@@ -81,20 +119,25 @@ import { withBase } from '../lib/base';
             <a
               href={withBase(`/services/#${service.id}`)}
               class="card service-card reveal"
-              style={`--reveal-delay: ${(i % 3) * 0.1}s`}
+              style={`--reveal-delay: ${(i % 3) * 0.12}s`}
             >
-              <svg
-                class="service-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d={service.icon} />
-              </svg>
+              <span class="service-index" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span class="icon-chip">
+                <svg
+                  class="service-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d={service.icon} />
+                </svg>
+              </span>
               <h3 class="service-title">{service.title}</h3>
               <p class="service-blurb">{service.blurb}</p>
               <span class="service-more">
@@ -113,10 +156,18 @@ import { withBase } from '../lib/base';
   <!-- ============ INTRO ============ -->
   <section class="section section--line intro">
     <div class="diagonal-texture" aria-hidden="true"></div>
+    <div
+      class="intro-watermark"
+      style={`background-image: url(${withBase('/logo-gold.png')})`}
+      aria-hidden="true"
+    >
+    </div>
     <div class="container intro-inner">
       <div class="reveal">
         <p class="eyebrow">Who we are</p>
-        <h2 class="section-title">A new firm with an old-fashioned belief: do the work properly.</h2>
+        <h2 class="section-title">
+          A new firm with an old-fashioned belief: <em>do the work properly.</em>
+        </h2>
       </div>
       <div class="intro-copy reveal" style="--reveal-delay: 0.15s">
         <p>
@@ -138,18 +189,22 @@ import { withBase } from '../lib/base';
 
   <!-- ============ CTA ============ -->
   <section class="section cta">
-    <div class="container cta-inner reveal">
-      <h2 class="cta-title">Have a project in mind?</h2>
-      <p class="cta-lede">
-        Tell us what you want to build. We will respond with clear, practical
-        next steps — no obligation.
-      </p>
-      <a href={withBase('/contact/')} class="btn btn--gold">
-        Contact us
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
-        </svg>
-      </a>
+    <div class="container">
+      <div class="cta-frame reveal">
+        <span class="cta-corner cta-corner--tl" aria-hidden="true"></span>
+        <span class="cta-corner cta-corner--br" aria-hidden="true"></span>
+        <h2 class="cta-title">Have a project in <em class="title-accent">mind?</em></h2>
+        <p class="cta-lede">
+          Tell us what you want to build. We will respond with clear, practical
+          next steps — no obligation.
+        </p>
+        <a href={withBase('/contact/')} class="btn btn--gold">
+          Contact us
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
 </Base>
@@ -159,13 +214,20 @@ import { withBase } from '../lib/base';
   .hero {
     position: relative;
     overflow: hidden;
-    padding-block: clamp(4.5rem, 11vw, 8.5rem) clamp(4rem, 9vw, 7rem);
+    padding-block: clamp(5rem, 12vw, 9rem) clamp(4.5rem, 10vw, 7.5rem);
+  }
+
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     background:
-      radial-gradient(ellipse 60% 50% at 75% 20%, rgba(200, 169, 110, 0.07), transparent 70%),
-      var(--ink);
+      radial-gradient(ellipse 55% 45% at 78% 18%, rgba(200, 169, 110, 0.1), transparent 70%),
+      radial-gradient(ellipse 40% 35% at 12% 85%, rgba(200, 169, 110, 0.05), transparent 70%);
   }
 
   .hero-inner {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
     align-items: center;
@@ -173,38 +235,71 @@ import { withBase } from '../lib/base';
   }
 
   .hero-title {
-    font-size: clamp(2.4rem, 5.6vw, 4.1rem);
-    margin-top: 1.4rem;
-  }
-
-  .hero-title em {
-    font-style: normal;
-    color: var(--gold);
+    font-size: clamp(2.5rem, 5.9vw, 4.4rem);
+    margin-top: 1.5rem;
+    letter-spacing: -0.02em;
   }
 
   .hero-lede {
     color: var(--muted);
-    font-size: 1.08rem;
+    font-size: 1.1rem;
     max-width: 34rem;
-    margin-top: 1.6rem;
+    margin-top: 1.7rem;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 2.4rem;
+    margin-top: 2.5rem;
+  }
+
+  .hero-facts {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+    gap: 2.75rem;
+    margin: 3.4rem 0 0;
+    padding-top: 1.9rem;
+    border-top: 1px solid var(--line-faint);
+  }
+
+  .hero-fact dt {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .hero-fact dd {
+    margin: 0.4rem 0 0;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .hero-art {
+    animation: hero-float 9s ease-in-out infinite alternate;
   }
 
   .hero-art svg {
     width: 100%;
     height: auto;
+    filter: drop-shadow(0 24px 60px rgba(200, 169, 110, 0.12));
+  }
+
+  @keyframes hero-float {
+    to {
+      transform: translateY(-14px);
+    }
   }
 
   .hero-anim {
     opacity: 0;
-    transform: translateY(24px);
-    animation: hero-rise 0.9s var(--ease-out) forwards;
+    transform: translateY(28px);
+    animation: hero-rise 1s var(--ease-fluid) forwards;
     animation-delay: var(--anim-delay, 0s);
   }
 
@@ -215,24 +310,51 @@ import { withBase } from '../lib/base';
     }
   }
 
-  @media (max-width: 860px) {
+  /* hero-art floats AND rises: nest animations on separate elements */
+  .hero-art.hero-anim {
+    animation:
+      hero-rise 1s var(--ease-fluid) forwards,
+      hero-float 9s ease-in-out 1.4s infinite alternate;
+    animation-delay: var(--anim-delay, 0s), 1.4s;
+  }
+
+  @media (max-width: 880px) {
     .hero-inner {
       grid-template-columns: 1fr;
     }
+
     .hero-art {
-      max-width: 19rem;
+      max-width: 18rem;
       justify-self: center;
       order: -1;
-      opacity: 0.85;
+      opacity: 0.9;
     }
+
+    .hero-facts {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.6rem 2rem;
+    }
+  }
+
+  /* ---- section head ---- */
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .section-head-cta {
+    flex-shrink: 0;
   }
 
   /* ---- services grid ---- */
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.4rem;
-    margin-top: 3.2rem;
+    gap: 1.5rem;
+    margin-top: 3.4rem;
   }
 
   .service-card {
@@ -240,18 +362,40 @@ import { withBase } from '../lib/base';
     color: inherit;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+  }
+
+  .service-index {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.6rem;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(200, 169, 110, 0.22);
+    transition: -webkit-text-stroke-color 0.45s var(--ease-fluid);
+  }
+
+  .service-card:hover .service-index {
+    -webkit-text-stroke-color: rgba(200, 169, 110, 0.55);
   }
 
   .service-icon {
-    width: 2.4rem;
-    height: 2.4rem;
-    color: var(--gold);
-    margin-bottom: 1.4rem;
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .service-card:hover .icon-chip {
+    background: linear-gradient(150deg, rgba(200, 169, 110, 0.22), rgba(200, 169, 110, 0.05) 70%);
+    border-color: var(--gold-dim);
+    color: var(--gold-bright);
   }
 
   .service-title {
-    font-size: 1.12rem;
-    margin-bottom: 0.7rem;
+    font-size: 1.14rem;
+    margin: 1.5rem 0 0.7rem;
   }
 
   .service-blurb {
@@ -264,12 +408,20 @@ import { withBase } from '../lib/base';
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 1.5rem;
+    margin-top: 1.6rem;
     font-size: 0.74rem;
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--gold);
+  }
+
+  .service-more svg {
+    transition: transform 0.4s var(--ease-fluid);
+  }
+
+  .service-card:hover .service-more svg {
+    transform: translateX(4px);
   }
 
   @media (max-width: 920px) {
@@ -287,11 +439,25 @@ import { withBase } from '../lib/base';
   /* ---- intro ---- */
   .intro {
     overflow: hidden;
+    background: var(--ink-2);
   }
 
   .intro .diagonal-texture {
     mask-image: linear-gradient(105deg, transparent 55%, black);
     -webkit-mask-image: linear-gradient(105deg, transparent 55%, black);
+  }
+
+  .intro-watermark {
+    position: absolute;
+    right: -6%;
+    bottom: -12%;
+    width: clamp(20rem, 42vw, 36rem);
+    aspect-ratio: 811 / 298;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.05;
+    pointer-events: none;
   }
 
   .intro-inner {
@@ -325,20 +491,44 @@ import { withBase } from '../lib/base';
   /* ---- cta ---- */
   .cta {
     border-top: 1px solid var(--line-faint);
-    background:
-      radial-gradient(ellipse 55% 70% at 50% 100%, rgba(200, 169, 110, 0.08), transparent 70%),
-      var(--ink-2);
   }
 
-  .cta-inner {
+  .cta-frame {
+    position: relative;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 6vw, 5rem);
+    border: 1px solid transparent;
+    background:
+      linear-gradient(165deg, var(--panel) 0%, var(--ink-2) 90%) padding-box,
+      var(--border-grad) border-box;
+  }
+
+  .cta-corner {
+    position: absolute;
+    width: 2.6rem;
+    height: 2.6rem;
+    pointer-events: none;
+  }
+
+  .cta-corner--tl {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid var(--gold);
+    border-left: 2px solid var(--gold);
+  }
+
+  .cta-corner--br {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
   }
 
   .cta-title {
-    font-size: clamp(1.9rem, 4.4vw, 3rem);
+    font-size: clamp(2rem, 4.6vw, 3.2rem);
   }
 
   .cta-lede {
