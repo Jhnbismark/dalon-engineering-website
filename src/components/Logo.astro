@@ -1,0 +1,83 @@
+---
+// SVG recreation of the Dalon mark: diagonal-striped tower + stepped
+// vertical bars, rendered in currentColor so it works white-on-dark.
+import { withBase } from '../lib/base';
+
+interface Props {
+  showTagline?: boolean;
+  class?: string;
+}
+const { showTagline = false, class: className } = Astro.props;
+---
+
+<a href={withBase('/')} class:list={['logo', className]} aria-label="Dalon Engineering Company Limited — Home">
+  <svg
+    class="logo-mark"
+    viewBox="0 0 88 96"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <defs>
+      <clipPath id="dalon-tower">
+        <path d="M2 96 V36 L40 4 V96 Z"></path>
+      </clipPath>
+    </defs>
+    <g clip-path="url(#dalon-tower)" stroke="currentColor" stroke-width="5">
+      <line x1="-28" y1="76" x2="64" y2="-4"></line>
+      <line x1="-18" y1="86" x2="74" y2="6"></line>
+      <line x1="-8" y1="96" x2="84" y2="16"></line>
+      <line x1="2" y1="106" x2="94" y2="26"></line>
+      <line x1="12" y1="116" x2="104" y2="36"></line>
+      <line x1="22" y1="126" x2="114" y2="46"></line>
+    </g>
+    <rect x="48" y="14" width="6" height="82" fill="currentColor"></rect>
+    <rect x="60" y="24" width="6" height="72" fill="currentColor"></rect>
+    <rect x="72" y="34" width="6" height="62" fill="currentColor"></rect>
+    <rect x="82" y="44" width="6" height="52" fill="currentColor"></rect>
+  </svg>
+  <span class="logo-text">
+    <span class="logo-word">DALON</span>
+    {showTagline && <span class="logo-tagline">Engineering Company Limited</span>}
+  </span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 2.1rem;
+    height: auto;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo-word {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: 0.08em;
+  }
+
+  .logo-tagline {
+    margin-top: 0.4rem;
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+</style>

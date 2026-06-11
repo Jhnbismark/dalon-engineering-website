@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jhnbismark.github.io/dalon-engineering-website/sitemap-index.xml

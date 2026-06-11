@@ -1,0 +1,202 @@
+---
+import Logo from './Logo.astro';
+import { withBase } from '../lib/base';
+
+const links = [
+  { href: withBase('/'), label: 'Home' },
+  { href: withBase('/about/'), label: 'About' },
+  { href: withBase('/services/'), label: 'Services' },
+  { href: withBase('/contact/'), label: 'Contact' },
+];
+
+const home = withBase('/');
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === home ? current === home : current.startsWith(href.replace(/\/$/, ''));
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <Logo />
+    <nav aria-label="Main navigation">
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="Toggle menu"
+      >
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <ul id="site-nav" class="nav-list">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={['nav-link', { 'is-active': isActive(link.href) }]}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="nav-cta-item">
+          <a href={withBase('/contact/')} class="btn btn--gold nav-cta">Get a quote</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(5, 10, 24, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-faint);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1.05rem;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 2.2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    position: relative;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    padding-block: 0.4rem;
+    transition: color 0.25s var(--ease-out);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .nav-link:hover,
+  .nav-link.is-active {
+    color: var(--text);
+  }
+
+  .nav-link.is-active::after,
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav-cta {
+    padding: 0.65rem 1.3rem;
+    font-size: 0.75rem;
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    width: 2.6rem;
+    height: 2.6rem;
+    background: none;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    padding: 0 0.6rem;
+  }
+
+  .nav-toggle-bar {
+    display: block;
+    height: 1.5px;
+    width: 100%;
+    background: var(--gold);
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .nav-toggle[aria-expanded='true'] .nav-toggle-bar:first-child {
+    transform: translateY(4.25px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded='true'] .nav-toggle-bar:last-child {
+    transform: translateY(-4.25px) rotate(-45deg);
+  }
+
+  @media (max-width: 760px) {
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--ink-2);
+      border-bottom: 1px solid var(--line);
+      padding: 0.75rem 1.25rem 1.5rem;
+      display: none;
+    }
+
+    .nav-list.is-open {
+      display: flex;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--line-faint);
+    }
+
+    .nav-link::after {
+      display: none;
+    }
+
+    .nav-cta-item {
+      margin-top: 1.25rem;
+    }
+
+    .nav-cta {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('site-nav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    nav?.classList.toggle('is-open', !open);
+  });
+</script>

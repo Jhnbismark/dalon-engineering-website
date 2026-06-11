@@ -1,0 +1,207 @@
+---
+import Base from '../layouts/Base.astro';
+import { services } from '../data/services';
+import { withBase } from '../lib/base';
+---
+
+<Base
+  title="Our Services — Dalon Engineering Company Limited"
+  description="Construction works, engineering consultancy, project management, quantity surveying, real estate development, material supply and plant hire — delivered across Uganda by Dalon Engineering Company Limited."
+>
+  <!-- ============ PAGE HEADER ============ -->
+  <section class="page-head">
+    <div class="grid-texture" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow">Services</p>
+      <h1 class="section-title page-title">
+        Everything a project needs,<br />under one roof.
+      </h1>
+      <p class="lede">
+        From the first feasibility question to the final account, we cover the
+        full life of a construction project. Engage us for a single discipline
+        or let us carry the whole load.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ SERVICE SECTIONS ============ -->
+  {
+    services.map((service, i) => (
+      <section
+        id={service.id}
+        class:list={['section', 'section--line', 'service-section', { 'service-section--alt': i % 2 === 1 }]}
+      >
+        <div class="container service-grid">
+          <div class="service-meta reveal">
+            <span class="service-index" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <svg
+              class="service-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d={service.icon} />
+            </svg>
+          </div>
+          <div class="service-body">
+            <h2 class="service-heading reveal">{service.title}</h2>
+            <p class="service-desc reveal" style="--reveal-delay: 0.1s">
+              {service.description}
+            </p>
+            <ul class="service-scope reveal" style="--reveal-delay: 0.2s">
+              {service.scope.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- ============ CTA ============ -->
+  <section class="section cta-band">
+    <div class="container cta-inner reveal">
+      <h2 class="section-title">Not sure which service fits?</h2>
+      <p class="lede cta-lede">
+        Describe the project and we will recommend the right scope — honestly,
+        even if it means a smaller engagement.
+      </p>
+      <a href={withBase('/contact/')} class="btn btn--gold">
+        Talk to an engineer
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4rem, 9vw, 6.5rem);
+  }
+
+  .page-title {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+  }
+
+  .service-section {
+    scroll-margin-top: 5.5rem;
+  }
+
+  .service-section--alt {
+    background: var(--ink-2);
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.35fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .service-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    position: sticky;
+    top: 6.5rem;
+  }
+
+  .service-index {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--gold-dim);
+  }
+
+  .service-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    color: var(--gold);
+  }
+
+  .service-heading {
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+  }
+
+  .service-desc {
+    margin-top: 1.3rem;
+    color: var(--muted);
+    max-width: 42rem;
+  }
+
+  .service-scope {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem 2rem;
+    max-width: 42rem;
+  }
+
+  .service-scope li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.94rem;
+    color: var(--text);
+  }
+
+  .service-scope li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.55rem;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  @media (max-width: 760px) {
+    .service-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .service-meta {
+      position: static;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .service-scope {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cta-band {
+    border-top: 1px solid var(--line-faint);
+    background:
+      radial-gradient(ellipse 55% 70% at 50% 100%, rgba(200, 169, 110, 0.08), transparent 70%),
+      var(--ink-2);
+  }
+
+  .cta-inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-lede {
+    margin-top: 1.2rem;
+    margin-bottom: 2.2rem;
+  }
+</style>

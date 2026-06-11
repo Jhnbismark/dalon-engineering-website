@@ -1,0 +1,220 @@
+---
+import Base from '../layouts/Base.astro';
+import { services } from '../data/services';
+
+const contact = {
+  email: 'ondogajohnbismark@gmail.com',
+  phone: '+256 789 555 720',
+  phoneHref: '+256789555720',
+  phoneAlt: '+256 726 368 801',
+  phoneAltHref: '+256726368801',
+  address: 'Kampala, Uganda',
+};
+---
+
+<Base
+  title="Contact Us — Dalon Engineering Company Limited"
+  description="Get in touch with Dalon Engineering Company Limited in Kampala, Uganda for construction works, engineering consultancy, project management and more."
+>
+  <section class="page-head">
+    <div class="grid-texture" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h1 class="section-title page-title">Let's talk about your project.</h1>
+      <p class="lede">
+        Send us a message and we will respond within one working day. Early
+        ideas are welcome — the best time to involve an engineer is before
+        anything is decided.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container contact-grid">
+      <!-- ---- details ---- -->
+      <div class="contact-details reveal">
+        <h2 class="contact-subhead">Reach us directly</h2>
+
+        <div class="detail">
+          <span class="detail-label">Email</span>
+          <a href={`mailto:${contact.email}`} class="detail-value">{contact.email}</a>
+        </div>
+
+        <div class="detail">
+          <span class="detail-label">Phone</span>
+          <a href={`tel:${contact.phoneHref}`} class="detail-value">{contact.phone}</a>
+          <a href={`tel:${contact.phoneAltHref}`} class="detail-value">{contact.phoneAlt}</a>
+        </div>
+
+        <div class="detail">
+          <span class="detail-label">Office</span>
+          <span class="detail-value">{contact.address}</span>
+        </div>
+
+        <div class="detail">
+          <span class="detail-label">Hours</span>
+          <span class="detail-value">Monday – Saturday, 8:00 – 18:00 EAT</span>
+        </div>
+
+        <div class="contact-note">
+          <p>
+            Prefer email? Write to us with a short description of the works,
+            the location and your target timeline — we will take it from
+            there.
+          </p>
+        </div>
+      </div>
+
+      <!-- ---- form ---- -->
+      <form
+        class="contact-form reveal"
+        style="--reveal-delay: 0.15s"
+        action="https://formsubmit.co/7e915345179123ffdf5197249bbcd172"
+        method="POST"
+      >
+        <input type="hidden" name="_subject" value="New enquiry — dalonengineering website" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="text" name="_honey" style="display: none" tabindex="-1" autocomplete="off" />
+
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="phone">Phone (optional)</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="service">Service of interest</label>
+            <select id="service" name="service">
+              <option value="">— Select a service —</option>
+              {services.map((s) => <option value={s.title}>{s.title}</option>)}
+              <option value="Other / not sure">Other / not sure</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">Your message</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            placeholder="Tell us about the project — what, where, and when."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--gold form-submit">
+          Send message
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+        </button>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4rem, 9vw, 6.5rem);
+  }
+
+  .page-title {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-subhead {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+
+  .detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-block: 1.1rem;
+    border-bottom: 1px solid var(--line-faint);
+  }
+
+  .detail-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .detail-value {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.02rem;
+    word-break: break-word;
+  }
+
+  a.detail-value:hover {
+    color: var(--gold-bright);
+  }
+
+  .contact-note {
+    margin-top: 2rem;
+    padding: 1.4rem 1.5rem;
+    border-left: 2px solid var(--gold);
+    background: var(--panel);
+    color: var(--muted);
+    font-size: 0.93rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    background: linear-gradient(160deg, var(--panel) 0%, var(--ink-2) 100%);
+    border: 1px solid var(--line-faint);
+    padding: 2.4rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
+
+  .form-submit {
+    align-self: flex-start;
+    margin-top: 0.4rem;
+  }
+
+  @media (max-width: 860px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-form {
+      padding: 1.6rem 1.3rem;
+    }
+  }
+</style>

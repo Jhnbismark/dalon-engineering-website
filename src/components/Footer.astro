@@ -1,0 +1,140 @@
+---
+import Logo from './Logo.astro';
+import { withBase } from '../lib/base';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="diagonal-texture" aria-hidden="true"></div>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <Logo showTagline />
+      <p class="footer-blurb">
+        A Ugandan engineering company delivering construction, consultancy and
+        development services with integrity and precision.
+      </p>
+    </div>
+
+    <nav class="footer-col" aria-label="Footer navigation">
+      <h4 class="footer-heading">Company</h4>
+      <ul class="footer-list">
+        <li><a href={withBase('/about/')}>About us</a></li>
+        <li><a href={withBase('/services/')}>Services</a></li>
+        <li><a href={withBase('/contact/')}>Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Services</h4>
+      <ul class="footer-list">
+        <li><a href={withBase('/services/#construction')}>Construction works</a></li>
+        <li><a href={withBase('/services/#consultancy')}>Engineering consultancy</a></li>
+        <li><a href={withBase('/services/#project-management')}>Project management</a></li>
+        <li><a href={withBase('/services/#quantity-surveying')}>Quantity surveying</a></li>
+        <li><a href={withBase('/services/#real-estate')}>Real estate development</a></li>
+        <li><a href={withBase('/services/#materials-plant')}>Materials &amp; plant hire</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Contact</h4>
+      <ul class="footer-list">
+        <li><a href="mailto:ondogajohnbismark@gmail.com">ondogajohnbismark@gmail.com</a></li>
+        <li><a href="tel:+256789555720">+256 789 555 720</a></li>
+        <li><a href="tel:+256726368801">+256 726 368 801</a></li>
+        <li>Kampala, Uganda</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>&copy; {year} Dalon Engineering Company Limited. All rights reserved.</p>
+    <p class="footer-reg">Registered in the Republic of Uganda</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    border-top: 1px solid var(--line);
+    background: var(--ink-2);
+    overflow: hidden;
+  }
+
+  .site-footer .diagonal-texture {
+    opacity: 0.35;
+    mask-image: linear-gradient(to top, black, transparent 60%);
+    -webkit-mask-image: linear-gradient(to top, black, transparent 60%);
+  }
+
+  .footer-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+    gap: 3rem;
+    padding-block: 4rem 3rem;
+  }
+
+  .footer-blurb {
+    margin-top: 1.4rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+    max-width: 22rem;
+  }
+
+  .footer-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  .footer-list a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.25s var(--ease-out);
+  }
+
+  .footer-list a:hover {
+    color: var(--gold-bright);
+  }
+
+  .footer-bottom {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--line-faint);
+    font-size: 0.8rem;
+    color: var(--faint);
+  }
+
+  @media (max-width: 900px) {
+    .footer-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

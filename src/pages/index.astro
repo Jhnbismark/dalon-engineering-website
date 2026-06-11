@@ -1,0 +1,349 @@
+---
+import Base from '../layouts/Base.astro';
+import { services } from '../data/services';
+import { withBase } from '../lib/base';
+---
+
+<Base
+  title="Dalon Engineering Company Limited — Construction & Engineering, Kampala, Uganda"
+  description="Dalon Engineering Company Limited is a Ugandan engineering firm offering construction works, engineering consultancy, project management, quantity surveying, real estate development, material supply and plant hire in Kampala and across Uganda."
+>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="grid-texture" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow hero-anim" style="--anim-delay: 0s">
+          Kampala · Uganda
+        </p>
+        <h1 class="hero-title hero-anim" style="--anim-delay: 0.12s">
+          Engineering built on <em>integrity.</em><br />Delivered with
+          <em>precision.</em>
+        </h1>
+        <p class="hero-lede hero-anim" style="--anim-delay: 0.24s">
+          Dalon Engineering Company Limited is a Ugandan engineering firm
+          providing construction, consultancy and development services — led by
+          qualified engineers who stand behind every structure we touch.
+        </p>
+        <div class="hero-actions hero-anim" style="--anim-delay: 0.36s">
+          <a href={withBase('/contact/')} class="btn btn--gold">
+            Start a project
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </a>
+          <a href={withBase('/services/')} class="btn btn--ghost">Explore services</a>
+        </div>
+      </div>
+
+      <!-- Architectural line work, echoing the logo geometry -->
+      <div class="hero-art hero-anim" style="--anim-delay: 0.3s" aria-hidden="true">
+        <svg viewBox="0 0 420 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="hero-tower">
+              <path d="M40 440 V190 L170 80 V440 Z"></path>
+            </clipPath>
+            <linearGradient id="hero-fade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#c8a96e" stop-opacity="0.9"></stop>
+              <stop offset="1" stop-color="#c8a96e" stop-opacity="0.25"></stop>
+            </linearGradient>
+          </defs>
+          <g clip-path="url(#hero-tower)" stroke="url(#hero-fade)" stroke-width="10">
+            <line x1="-80" y1="380" x2="280" y2="60"></line>
+            <line x1="-50" y1="410" x2="310" y2="90"></line>
+            <line x1="-20" y1="440" x2="340" y2="120"></line>
+            <line x1="10" y1="470" x2="370" y2="150"></line>
+            <line x1="40" y1="500" x2="400" y2="180"></line>
+            <line x1="70" y1="530" x2="430" y2="210"></line>
+            <line x1="100" y1="560" x2="460" y2="240"></line>
+          </g>
+          <rect x="196" y="118" width="18" height="322" fill="url(#hero-fade)"></rect>
+          <rect x="238" y="152" width="18" height="288" fill="url(#hero-fade)"></rect>
+          <rect x="280" y="186" width="18" height="254" fill="url(#hero-fade)"></rect>
+          <rect x="318" y="220" width="18" height="220" fill="url(#hero-fade)"></rect>
+          <line x1="0" y1="440.5" x2="420" y2="440.5" stroke="#c8a96e" stroke-opacity="0.45"></line>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="section section--line">
+    <div class="container">
+      <div class="reveal">
+        <p class="eyebrow">What we do</p>
+        <h2 class="section-title">Six disciplines.<br />One standard of work.</h2>
+      </div>
+
+      <div class="services-grid">
+        {
+          services.map((service, i) => (
+            <a
+              href={withBase(`/services/#${service.id}`)}
+              class="card service-card reveal"
+              style={`--reveal-delay: ${(i % 3) * 0.1}s`}
+            >
+              <svg
+                class="service-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d={service.icon} />
+              </svg>
+              <h3 class="service-title">{service.title}</h3>
+              <p class="service-blurb">{service.blurb}</p>
+              <span class="service-more">
+                Learn more
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INTRO ============ -->
+  <section class="section section--line intro">
+    <div class="diagonal-texture" aria-hidden="true"></div>
+    <div class="container intro-inner">
+      <div class="reveal">
+        <p class="eyebrow">Who we are</p>
+        <h2 class="section-title">A new firm with an old-fashioned belief: do the work properly.</h2>
+      </div>
+      <div class="intro-copy reveal" style="--reveal-delay: 0.15s">
+        <p>
+          Dalon Engineering Company Limited is a newly registered Ugandan
+          company founded by practising engineers. We combine technical design
+          capability, cost discipline and hands-on site delivery under one
+          roof — so clients deal with one accountable partner instead of a
+          chain of middlemen.
+        </p>
+        <p>
+          Whether you are building a home, developing property or procuring
+          works for an institution, we bring the same approach: honest advice,
+          careful engineering and a finished product we are proud to sign.
+        </p>
+        <a href={withBase('/about/')} class="btn btn--ghost">About the company</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="section cta">
+    <div class="container cta-inner reveal">
+      <h2 class="cta-title">Have a project in mind?</h2>
+      <p class="cta-lede">
+        Tell us what you want to build. We will respond with clear, practical
+        next steps — no obligation.
+      </p>
+      <a href={withBase('/contact/')} class="btn btn--gold">
+        Contact us
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---- hero ---- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4.5rem, 11vw, 8.5rem) clamp(4rem, 9vw, 7rem);
+    background:
+      radial-gradient(ellipse 60% 50% at 75% 20%, rgba(200, 169, 110, 0.07), transparent 70%),
+      var(--ink);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 5.6vw, 4.1rem);
+    margin-top: 1.4rem;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-lede {
+    color: var(--muted);
+    font-size: 1.08rem;
+    max-width: 34rem;
+    margin-top: 1.6rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.4rem;
+  }
+
+  .hero-art svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-anim {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: hero-rise 0.9s var(--ease-out) forwards;
+    animation-delay: var(--anim-delay, 0s);
+  }
+
+  @keyframes hero-rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-art {
+      max-width: 19rem;
+      justify-self: center;
+      order: -1;
+      opacity: 0.85;
+    }
+  }
+
+  /* ---- services grid ---- */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    margin-top: 3.2rem;
+  }
+
+  .service-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    color: var(--gold);
+    margin-bottom: 1.4rem;
+  }
+
+  .service-title {
+    font-size: 1.12rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .service-blurb {
+    color: var(--muted);
+    font-size: 0.93rem;
+    flex-grow: 1;
+  }
+
+  .service-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  @media (max-width: 920px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ---- intro ---- */
+  .intro {
+    overflow: hidden;
+  }
+
+  .intro .diagonal-texture {
+    mask-image: linear-gradient(105deg, transparent 55%, black);
+    -webkit-mask-image: linear-gradient(105deg, transparent 55%, black);
+  }
+
+  .intro-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .intro-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    align-items: flex-start;
+    color: var(--muted);
+    padding-top: 0.5rem;
+  }
+
+  .intro-copy .btn {
+    margin-top: 0.6rem;
+  }
+
+  @media (max-width: 820px) {
+    .intro-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  /* ---- cta ---- */
+  .cta {
+    border-top: 1px solid var(--line-faint);
+    background:
+      radial-gradient(ellipse 55% 70% at 50% 100%, rgba(200, 169, 110, 0.08), transparent 70%),
+      var(--ink-2);
+  }
+
+  .cta-inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-title {
+    font-size: clamp(1.9rem, 4.4vw, 3rem);
+  }
+
+  .cta-lede {
+    color: var(--muted);
+    max-width: 30rem;
+    margin-block: 1.2rem 2.2rem;
+  }
+</style>
