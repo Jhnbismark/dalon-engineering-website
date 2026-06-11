@@ -1,6 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import { services } from '../data/services';
+import { withBase } from '../lib/base';
+
+// Absolute URL FormSubmit redirects to after a successful submission.
+const nextUrl = new URL(withBase('/contact/') + '?sent=1', Astro.site);
 
 const contact = {
   email: 'ondogajohnbismark@gmail.com',
@@ -72,9 +76,16 @@ const contact = {
         action="https://formsubmit.co/7e915345179123ffdf5197249bbcd172"
         method="POST"
       >
-        <input type="hidden" name="_subject" value="New enquiry — dalonengineering website" />
+        <input type="hidden" name="_subject" value="New enquiry — Dalon Engineering website" />
         <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value={nextUrl} />
         <input type="text" name="_honey" style="display: none" tabindex="-1" autocomplete="off" />
+
+        <p class="form-success" id="form-success" hidden>
+          Thank you — your message has been sent. We will get back to you
+          within one working day.
+        </p>
 
         <div class="form-row">
           <div class="field">
@@ -208,6 +219,14 @@ const contact = {
     }
   }
 
+  .form-success {
+    border: 1px solid var(--gold);
+    background: rgba(200, 169, 110, 0.08);
+    color: var(--gold-bright);
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
   @media (max-width: 540px) {
     .form-row {
       grid-template-columns: 1fr;
@@ -218,3 +237,14 @@ const contact = {
     }
   }
 </style>
+
+<script>
+  // Show the success note when FormSubmit redirects back with ?sent=1.
+  if (new URLSearchParams(window.location.search).get('sent') === '1') {
+    const note = document.getElementById('form-success');
+    if (note) {
+      note.hidden = false;
+      note.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+  }
+</script>
